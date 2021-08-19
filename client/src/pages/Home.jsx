@@ -7,7 +7,7 @@ export const Home = () => {
     <div className="home">
       <Navbar />
 
-      <Featured />
+      <Featured type={"series"} />
     </div>
   );
 };
