@@ -1,12 +1,33 @@
 import "./featured.scss";
 import { Info, PlayArrow } from "@material-ui/icons";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Featured({ type }) {
+  const [content, setContent] = useState([]);
+
+  useEffect(() => {
+    const getRandomContent = async () => {
+      try {
+        const res = await axios.get(`/movies/random?type=${type}`, {
+          headers: {
+            token:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWY3NDJlNzZmYTFlMzA3ODMyMGZmNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYyOTY5NDgyMiwiZXhwIjoxNjMwMTI2ODIyfQ.CaXe3vR0RXO2UlHReDo9C0YVkZqVDny4jNfap9j9dZw",
+          },
+        });
+        setContent(res.data[0]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getRandomContent();
+  }, [type]);
+  console.log(content);
   return (
     <div className="featured">
       {type && (
         <div className="category">
-          <span>{type === "movie" ? "movies" : "series"}</span>
+          <span>{type === "movies" ? "movies" : "series"}</span>
           <select name="genre" id="genere">
             <option>Genre</option>
             <option value="adventure">Adventure</option>
@@ -25,21 +46,10 @@ function Featured({ type }) {
           </select>
         </div>
       )}
-      <img
-        src="https://images.pexels.com/photos/6899260/pexels-photo-6899260.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        alt=""
-      />
+      <img src={content.img} alt="" />
       <div className="info">
-        <img
-          src="https://occ-0-1432-1433.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABUZdeG1DrMstq-YKHZ-dA-cx2uQN_YbCYx7RABDk0y7F8ZK6nzgCz4bp5qJVgMizPbVpIvXrd4xMBQAuNe0xmuW2WjoeGMDn1cFO.webp?r=df1"
-          alt=""
-        />
-        <span className="desc">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero ipsam
-          expedita repellat commodi exercitationem! Beatae incidunt assumenda
-          eos dolor ipsam obcaecati eum quod soluta doloribus quis commodi,
-          esse, laboriosam corrupti!
-        </span>
+        <img src={content.imgTitle} alt="" />
+        <span className="desc">{content.desc}</span>
         <div className="buttons">
           <button className="play">
             <PlayArrow />

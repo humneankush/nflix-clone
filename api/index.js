@@ -1,32 +1,36 @@
 const express = require("express");
+const dotenv = require("dotenv");
+const mongoose = require("mongoose");
+
 const app = express();
 
-const cors = require("cors");
-
-const mongoose = require("mongoose");
+// define routes
 const authRoute = require("./routes/auth");
-
-const dotenv = require("dotenv");
+const userRoute = require("./routes/users");
+const movieRoute = require("./routes/movies");
+const listRoute = require("./routes/lists");
 
 dotenv.config();
-
+// connection with mongoDB
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useFindAndModify: false,
     useCreateIndex: true,
+    useUnifiedTopology: true,
   })
-  .then(() => console.log("DB successfully connectd"))
+  .then(() => console.log("DB Connection Successfull"))
   .catch((err) => {
     console.log(err);
   });
 
-app.use(cors());
-
+// middleware
 app.use(express.json());
-
 app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
+app.use("/api/movies", movieRoute);
+app.use("/api/lists", listRoute);
 
 app.listen(process.env.PORT, () => {
-  console.log("backend server is running");
+  console.log("Backend server is running " + process.env.PORT);
 });
