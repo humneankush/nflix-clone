@@ -1,10 +1,13 @@
 import { ArrowDropDown, Notifications, Search } from "@material-ui/icons";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { logout } from "../../authContext/AuthActions";
+import { AuthContext } from "../../authContext/AuthContext";
 import "./navbar.scss";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { dispatch } = useContext(AuthContext);
 
   // this is used for when we scroll down page navbar will convert into mian color
   window.onscroll = () => {
@@ -45,7 +48,7 @@ const Navbar = () => {
             <ArrowDropDown className="icon" />
             <div className="options">
               <span>Settings</span>
-              <span>Logout</span>
+              <span onClick={() => dispatch(logout())}>Logout</span>
             </div>
           </div>
         </div>

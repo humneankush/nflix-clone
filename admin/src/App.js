@@ -14,6 +14,10 @@ import Login from "./pages/login/Login";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext/AuthContext";
 import Movie from "./pages/movie/Movie";
+import NewMovie from "./pages/newMovie/NewMovie";
+import ListList from "./pages/listList/ListList";
+import List from "./pages/list/List";
+import NewList from "./pages/list/newList/NewList";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -40,6 +44,18 @@ function App() {
               </Route>
               <Route path="/movie/:movieId">
                 <Movie />
+              </Route>
+              <Route path="/newMovie">
+                <NewMovie />
+              </Route>
+              <Route path="/lists">
+                <ListList />
+              </Route>
+              <Route path="/list/:listId">
+                <List />
+              </Route>
+              <Route path="/newlist">
+                <NewList />
               </Route>
             </div>
           </>

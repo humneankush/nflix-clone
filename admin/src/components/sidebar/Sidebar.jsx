@@ -1,5 +1,4 @@
 import {
-  AttachMoney,
   BarChart,
   DynamicFeed,
   LineStyle,
@@ -10,6 +9,7 @@ import {
   Timeline,
   TrendingUp,
   WorkOutline,
+  List,
 } from "@material-ui/icons";
 import React from "react";
 import "./sidebar.css";
@@ -54,11 +54,13 @@ function Sidebar() {
                 Movies
               </li>
             </Link>
+            <Link to="/lists" className="link">
+              <li className="sidebarListItem ">
+                <List className="sidebarIcon" />
+                Lists
+              </li>
+            </Link>
 
-            <li className="sidebarListItem ">
-              <AttachMoney className="sidebarIcon" />
-              Transactions
-            </li>
             <li className="sidebarListItem ">
               <BarChart className="sidebarIcon" />
               Reports

@@ -3,7 +3,7 @@ import { Info, PlayArrow } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-function Featured({ type }) {
+function Featured({ type, setGenre }) {
   const [content, setContent] = useState([]);
 
   useEffect(() => {
@@ -28,7 +28,11 @@ function Featured({ type }) {
       {type && (
         <div className="category">
           <span>{type === "movies" ? "movies" : "series"}</span>
-          <select name="genre" id="genere">
+          <select
+            name="genre"
+            id="genere"
+            onChange={(e) => setGenre(e.target.value)}
+          >
             <option>Genre</option>
             <option value="adventure">Adventure</option>
             <option value="comedy">Comedy</option>
